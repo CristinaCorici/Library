@@ -18,6 +18,7 @@ import java.util.List;
 public class UserController {
 
     private UserRepository userRepository;
+    private User user;
 
     @Autowired
     public UserController(UserRepository userRepository) {
@@ -50,6 +51,11 @@ public class UserController {
     @GetMapping("/signup")
     public String showSignUpForm(User user) {
         return "register";
+    }
+
+    @GetMapping("/loginform")
+    public String showLogInForm(User user) {
+        return "login";
     }
 
     @PostMapping("/adduser")

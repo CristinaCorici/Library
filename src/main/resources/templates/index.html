@@ -6,10 +6,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Library Project</title>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> <!--  fara asta nu merge drop-downul -->
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
+<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+<!--    <script src="//netdna.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> &lt;!&ndash;  fara asta nu merge drop-downul &ndash;&gt;-->
+<!--    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+    <link href="/css/custom/mystyle.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -18,12 +18,18 @@
     <link href="/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="/css/style.css" rel="stylesheet">
+
+
 </head>
 <body>
 
-<header th:insert="fragments/navbar.html :: header"> </header>
 
-<footer th:insert="fragments/login.html :: footer"> </footer>
+
+<header th:insert="fragments/navbar.html :: headerIndex"> </header>
+
+
+
+<!--<footer th:insert="fragments/login.html :: footer"> </footer>-->
 
 </body>
 </html>
