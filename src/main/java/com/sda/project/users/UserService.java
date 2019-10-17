@@ -3,6 +3,7 @@ package com.sda.project.users;
 import com.sda.project.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public Optional<User> getById(Long id) {
         return userRepository.findById(id);
     }
@@ -23,9 +27,10 @@ public class UserService {
     }
 
     public User addUser(User user) {
-        if (user.getName() == null) {
-            user.setName("Anonim");
-        }
+
+        String oldPassword=user.getPassword();
+        user.setPassword(bCryptPasswordEncoder.encode(oldPassword));
+
         return userRepository.save(user);
     }
 

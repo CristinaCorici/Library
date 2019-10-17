@@ -13,13 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
+    @NotBlank (message="name is mandatory ")
     private String name;
 
-    @NotBlank
+    @NotBlank (message="email is mandatory ")
     private String email;
 
-    @NotBlank
+    @NotBlank(message="password is mandatory ")
     private String password;
 
     public User() {};
