@@ -1,7 +1,7 @@
 package com.sda.project.controllers;
 
 import com.sda.project.entities.User;
-import com.sda.project.repositories.UserRepository;
+import com.sda.project.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,33 +17,20 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private UserRepository userRepository;
-    private User user;
+    private UserService userService;
+//    private User user;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @Value("${spring.application.name}")
     String appName;
 
-//    @GetMapping("/")
-//    public String homePage() {
-//        User user1 = new User();
-//        user1.setName("Gigi");
-//        user1.setEmail("gigi@gmail.com");
-//        user1.setPassword("123");
-//        userRepository.save(user1);
-//        userRepository.findAll();
-//
-//        model.addAttribute("appName", appName);
-//        return "index";
-//    }
-
     @GetMapping("/")
     public String showUpdateForm(Model model) {
-        List<User> users = (List<User>) userRepository.findAll();
+        List<User> users = (List<User>) userService.get();
         model.addAttribute("users", users);
         return "index";
     }
@@ -64,14 +51,14 @@ public class UserController {
             return "register";
         }
 
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+        userService.addUser(user);
+        model.addAttribute("users", userService.get());
         return "index";
     }
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user id" + id));
+        User user = userService.getById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user id" + id));
         model.addAttribute("user",user);
         return "user-edit";
     }
@@ -83,16 +70,16 @@ public class UserController {
             return "user-edit";
         }
 
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+        userService.addUser(user);
+        model.addAttribute("users", userService.get());
         return "index";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user id" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
+        User user = userService.getById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user id" + id));
+        userService.delete(id);
+        model.addAttribute("users", userService.get());
         return "index";
     }
 
