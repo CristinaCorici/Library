@@ -40,7 +40,7 @@ public class UserController {
         return "register";
     }
 
-    @GetMapping("/loginform")
+    @GetMapping("/login")
     public String showLogInForm(User user) {
         return "login";
     }
