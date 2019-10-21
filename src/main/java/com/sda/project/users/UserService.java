@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -20,11 +19,14 @@ import java.util.Optional;
 @Service("userService")
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository) {this.userRepository = userRepository;}
 
     public Optional<User> getById(Long id) {
         return userRepository.findById(id);

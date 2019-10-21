@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,9 +42,15 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLogInForm(User user) {
-        return "login";
+    public String showLogInForm() {
+       return "login";
     }
+
+//    @RequestMapping("/login-error")
+//    public String loginError(Model model) {
+//       model.addAttribute("loginError", true);
+//       return "login";
+//    }
 
     @PostMapping("/adduser")
     public String addUser(@Valid User user, BindingResult result, Model model){
