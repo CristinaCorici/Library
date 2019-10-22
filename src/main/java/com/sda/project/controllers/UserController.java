@@ -42,17 +42,20 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLogInForm() {
+    public String showLogInForm(@PathVariable(required = false) String error) {
        return "login";
     }
 
-//    @RequestMapping("/login-error")
-//    public String loginError(Model model) {
-//       model.addAttribute("loginError", true);
-//       return "login";
-//    }
+    @GetMapping("/login?error")
+    public String error(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
 
-    @PostMapping("/adduser")
+
+
+
+        @PostMapping("/adduser")
     public String addUser(@Valid User user, BindingResult result, Model model){
         if(result.hasErrors()) {
             return "register";

@@ -64,12 +64,11 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> byEmail = userRepository.findByEmail(email);
-        User user;
-        if (byEmail.isPresent()) {
-            user = byEmail.get();
-        }else {
+        if (!byEmail.isPresent()) {
             throw new UsernameNotFoundException("User not found");
         }
+        User user = byEmail.get();
+
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
     }
 
