@@ -26,10 +26,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Value("${spring.application.name}")
-    String appName;
-
+//    @Value("${spring.application.name}")
+//    String appName;
     @GetMapping("/")
+    public String showUpdateForm() {
+        return "index";
+    }
+
+    @GetMapping("/users")
     public String showUpdateForm(Model model) {
         List<User> users = (List<User>) userService.get();
         model.addAttribute("users", users);
@@ -45,15 +49,6 @@ public class UserController {
     public String showLogInForm(@PathVariable(required = false) String error) {
        return "login";
     }
-
-    @GetMapping("/login?error")
-    public String error(Model model) {
-        model.addAttribute("loginError", true);
-        return "login";
-    }
-
-
-
 
         @PostMapping("/adduser")
     public String addUser(@Valid User user, BindingResult result, Model model){

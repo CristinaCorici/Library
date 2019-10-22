@@ -1,51 +1,7 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Library Project</title>
-
-<!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
-<!--    <script src="//netdna.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> &lt;!&ndash;  fara asta nu merge drop-downul &ndash;&gt;-->
-<!--    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+layout:decorate="~{fragments/main_layout}">
+<div layout:fragment="content" class="container">
     <link href="/css/custom/mystyle.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="/css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="/css/style.css" rel="stylesheet">
 
-
-</head>
-<body>
-
-
-
-<header th:insert="fragments/navbar.html :: headerIndex"> </header>
-
-
-<!--header<h2>Welcome</h2>-->
-<!--<p>Spring Security Thymeleaf tutorial</p>-->
-<!--<div sec:authorize="hasRole('USER')">Text visible to user.</div>-->
-<!--<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>-->
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    Text visible only to authenticated users.-->
-<!--</div>-->
-<!--Authenticated username:-->
-<!--<div sec:authentication="name"></div>-->
-<!--Authenticated user roles:-->
-<!--<div sec:authentication="principal.authorities"></div>-->
-
-
-
-<!--<footer th:insert="fragments/login.html :: footer"> </footer>-->
-
-</body>
+</div>
 </html>
