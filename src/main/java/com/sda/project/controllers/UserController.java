@@ -19,7 +19,7 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
-//    private User user;
+    private User user;
 
     @Autowired
     public UserController(UserService userService) {
@@ -50,12 +50,18 @@ public class UserController {
        return "login";
     }
 
+    @GetMapping("/first-page")
+    public String showFirstPage() {
+        return "first-page";
+    }
+
         @PostMapping("/adduser")
     public String addUser(@Valid User user, BindingResult result, Model model){
         if(result.hasErrors()) {
             return "register";
         }
 
+        user.setRole("USER");
         userService.addUser(user);
         model.addAttribute("users", userService.get());
         return "index";

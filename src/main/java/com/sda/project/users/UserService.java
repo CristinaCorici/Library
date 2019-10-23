@@ -73,6 +73,6 @@ public class UserService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> getAuthority(User user) {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + "USER")); //TODO add role field to user; can be user, admin etc.
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
     }
 }
