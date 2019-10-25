@@ -26,7 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @Value("${spring.application.name}")
+    //    @Value("${spring.application.name}")
 //    String appName;
     @GetMapping("/")
     public String showUpdateForm() {
@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String showLogInForm(@PathVariable(required = false) String error) {
-       return "login";
+        return "login";
     }
 
     @GetMapping("/first-page")
@@ -55,9 +55,9 @@ public class UserController {
         return "first-page";
     }
 
-        @PostMapping("/adduser")
-    public String addUser(@Valid User user, BindingResult result, Model model){
-        if(result.hasErrors()) {
+    @PostMapping("/adduser")
+    public String addUser(@Valid User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             return "register";
         }
 
@@ -70,7 +70,7 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         User user = userService.getById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user id" + id));
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "user-edit";
     }
 
