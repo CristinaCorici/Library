@@ -2,6 +2,7 @@ package com.sda.project.books;
 
 import com.sda.project.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,5 +24,13 @@ public class BookService {
 
     public List<Book> getBooks() {
         return bookRepository.findAll();
+    }
+
+    public Optional<Book> getById(Long id) {
+        return bookRepository.findById(id);
+    }
+
+    public void delete(Long id)throws EmptyResultDataAccessException {
+        bookRepository.deleteById(id);
     }
 }

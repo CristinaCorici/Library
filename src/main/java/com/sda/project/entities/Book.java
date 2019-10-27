@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
@@ -21,20 +22,19 @@ public class Book {
     private String bookName;
     @NotBlank
     private String publishingHouse;
-    @NotBlank
+
     private int pageNo;
-    @NotBlank
+
     private int stock;
+
     @NotBlank
     private String category;
 
-    private ByteArray immage;
+//    private ByteArray immage;
 
     private Date borrowDate;
     private Date returnDate;
 //    private User user;
-
-    public Book() {};
 
     public Long getId() {
         return id;
@@ -116,4 +116,19 @@ public class Book {
 //        this.user = user;
 //    }
 
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", publishingHouse='" + publishingHouse + '\'' +
+                ", pageNo=" + pageNo +
+                ", stock=" + stock +
+                ", category='" + category + '\'' +
+                ", borrowDate=" + borrowDate +
+                ", returnDate=" + returnDate +
+                '}';
+    }
 }
