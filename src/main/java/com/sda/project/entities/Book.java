@@ -30,7 +30,7 @@ public class Book {
     @NotBlank
     private String category;
 
-//    private ByteArray immage;
+    private String immage;
 
     private Date borrowDate;
     private Date returnDate;
@@ -90,6 +90,14 @@ public class Book {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImmage() {
+        return immage;
+    }
+
+    public void setImmage(String immage) {
+        this.immage = immage;
     }
 
     public Date getBorrowDate() {
