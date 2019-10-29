@@ -2,10 +2,7 @@ package com.sda.project.entities;
 
 import javassist.bytecode.ByteArray;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -30,7 +27,9 @@ public class Book {
     @NotBlank
     private String category;
 
-    private String immage;
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] immage;
 
     private Date borrowDate;
     private Date returnDate;
@@ -92,11 +91,11 @@ public class Book {
         this.category = category;
     }
 
-    public String getImmage() {
+    public byte[] getImmage() {
         return immage;
     }
 
-    public void setImmage(String immage) {
+    public void setImmage(byte[] immage) {
         this.immage = immage;
     }
 

@@ -3,14 +3,12 @@ package com.sda.project.controllers;
 import com.sda.project.entities.User;
 import com.sda.project.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,28 +24,35 @@ public class UserController {
         this.userService = userService;
     }
 
-    //    @Value("${spring.application.name}")
-//    String appName;
     @GetMapping("/")
     public String showUpdateForm() {
+
         return "index";
     }
 
-    @GetMapping("/users")
+    public void getAdmin(Model model) {
+        User userAdmin = new User("Administrator", "admin@gmail.com",
+                "administrator", "ADMIN");
+//        TODO if
+        userService.addUser(userAdmin);
+
+    }
+
+    @GetMapping("/view-users")
     public String showUpdateForm(Model model) {
         List<User> users = (List<User>) userService.get();
         model.addAttribute("users", users);
-        return "index";
+        return "users";
     }
 
     @GetMapping("/signup")
     public String showSignUpForm(User user) {
-        return "register";
+        return "users/register";
     }
 
     @GetMapping("/login")
     public String showLogInForm(@PathVariable(required = false) String error) {
-        return "login";
+        return "users/login";
     }
 
     @GetMapping("/first-page")
@@ -58,7 +63,7 @@ public class UserController {
     @PostMapping("/adduser")
     public String addUser(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "register";
+            return "users/register";
         }
 
         user.setRole("USER");

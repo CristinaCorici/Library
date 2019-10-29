@@ -9,9 +9,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BookControler {
@@ -20,7 +27,9 @@ public class BookControler {
     private BookService bookService;
 
     @GetMapping("/edit-book")
-    public String showBookRegisterForm() {
+    public String showBookRegisterForm(Model model) {
+        List<Book> books = bookService.getBooks();
+        model.addAttribute("books", books );
         return "edit-book";
     }
 
@@ -31,11 +40,12 @@ public class BookControler {
     }
 
     @PostMapping("/loadbook")
-    public String addBook(@Valid Book book, BindingResult result, Model model) {
+    public String addBook(@RequestParam("image") MultipartFile image, @Valid Book book, BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
             return "book-register";
         }
-
+        byte[] byteImage = image.getBytes();
+        book.setImmage(byteImage);
         bookService.addBook(book);
         model.addAttribute("books", bookService.getBooks());
         return "edit-book";
@@ -50,12 +60,15 @@ public class BookControler {
     }
 
     @PostMapping("/book-update/{id}")
-    public String updateBook(@PathVariable("id") long id, @Valid Book book, BindingResult result, Model model) {
+    public String updateBook(@RequestParam("image") MultipartFile image, @PathVariable("id") long id,
+                             @Valid Book book, BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
             book.setId(id);
             return "book-update";
         }
 
+        byte[] byteImage = image.getBytes();
+        book.setImmage(byteImage);
         bookService.addBook(book);
         model.addAttribute("books", bookService.getBooks());
         return "edit-book";
@@ -68,5 +81,23 @@ public class BookControler {
         bookService.delete(id);
         model.addAttribute("users", bookService.getBooks());
         return "edit-book";
+    }
+
+    @GetMapping("/getImmageFromDB/{id}")
+    public void getImmageFromDB(@PathVariable("id") Long id, HttpServletResponse response) {
+        Optional<Book> existing = bookService.getById(id);
+        if (existing.isPresent()) {
+            try {
+                if (existing.get().getImmage()!=null) {
+                    response.getOutputStream().write(existing.get().getImmage());
+                    response.getOutputStream().close();
+                }else {
+                    response.getOutputStream().write(Files.readAllBytes(Paths.get("src/main/resources/static/img/love-books.jpg")));
+                    response.getOutputStream().close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

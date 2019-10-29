@@ -7,7 +7,7 @@
     <h2 class="mb-5">Book Update</h2>
     <div class="row">
         <div class="col-md-6">
-            <form action="#" th:action="@{/book-update/{id}(id=${book.id})}" th:object="${book}" method="post">
+            <form action="#" th:action="@{/book-update/{id}(id=${book.id})}" th:object="${book}" method="post" enctype="multipart/form-data">
                 <div class="row">md
                     <div class="form-group col-md-6">
                         <label for="bookName" class="col-form-label">Book Name</label>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="immage" class="col-form-label">Immage</label>
-                        <input type="text" th:field="*{immage}" class="form-control" id="immage"
+                        <input name="image" type="file" class="form-control" id="immage"
                                placeholder="Immage">
                         <span th:if="${#fields.hasErrors('immage')}" th:errors="*{immage}"
                               class="text-danger"></span>

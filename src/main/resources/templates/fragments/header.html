@@ -42,6 +42,11 @@
                         <a class="nav-link" th:href="@{/edit-book}">Books</a>
                     </li>
                 </div>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/view-users}">Users</a>
+                    </li>
+                </div>
             </ul>
 
 
