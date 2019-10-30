@@ -1,8 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
-     layout:decorate="~{fragments/main_layout}" xmlns:sec=“http://www.thymeleaf.org/extras/spring-security”>
+      layout:decorate="~{fragments/main_layout}" xmlns:sec=“http://www.thymeleaf.org/extras/spring-security”>
 
-<div layout:fragment="content" class="container">
-<!--        <link href="/css/custom/mystyle.css" rel="stylesheet">-->
-<img src="/img/love-books.jpg" alt="I love books" size="width 99%, height 99%">
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+        <div class="row">
+            <div class=" col-md-8 col-sm-12">
+                <img src="/img/love-books.jpg" alt="I love books">
+            </div>
+            <div class="col-md-4 col-sm-12" >
+                <div class="inner-col">
+                    <h1 class="text-center">Welcome to our Library</h1>
+                    <p class="text-center">“I have always imagined that Paradise will be a kind of library.”
+                        ― Jorge Luis Borges</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

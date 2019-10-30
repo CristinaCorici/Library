@@ -30,13 +30,15 @@ public class UserController {
         return "index";
     }
 
-    public void getAdmin(Model model) {
-        User userAdmin = new User("Administrator", "admin@gmail.com",
-                "administrator", "ADMIN");
-//        TODO if
-        userService.addUser(userAdmin);
-
-    }
+//    @PostMapping("/")
+//    public void getAdmin(Model model) {
+//        User userAdmin = new User("Administrator", "admin@gmail.com",
+//                "administrator", "ADMIN");
+//        if (userAdmin.getEmail().isEmpty()) {
+//        userService.addUser(userAdmin);
+//        model.addAttribute("users", userService.get());
+//        }
+//    }
 
     @GetMapping("/view-users")
     public String showUpdateForm(Model model) {
