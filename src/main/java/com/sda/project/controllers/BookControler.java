@@ -17,8 +17,10 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class BookControler {
@@ -100,4 +102,28 @@ public class BookControler {
             }
         }
     }
+
+    @GetMapping("/religion")
+    public String showReligionPage(Model model){
+//        model.addAttribute("religionBooks",getBooksFromCategory("religion"));
+        List<Book> books = bookService.getBooks();
+        model.addAttribute("religionBooks", books);
+        return "religion";
+    }
+
+    public List<Book> getBooksFromCategory(String category){ //Java 7
+        List<Book> books = bookService.getBooks();
+        List<Book> bookByCategory = new ArrayList<>();
+        for (Book book : books){
+            if(category.equals(book.getCategory())){
+                bookByCategory.add(book);
+            }
+        }
+        return bookByCategory;
+    }
+
+    public List<Book> getBooksByCategoryJava8(String category){
+       return  bookService.getBooks().stream().filter(b -> b.getCategory().equals(category)).collect(Collectors.toList());
+    }
+
 }

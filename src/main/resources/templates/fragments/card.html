@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec=“http://www.thymeleaf.org/extras/spring-security”>
+
+<div th:fragment="card(book)">
+    <!-- Card -->
+    <div class="card">
+
+        <!-- Card image -->
+        <img class="card-img-top" src="static/img/maria-regina-romaniei-jurnal-de-razboi-1918-13118.jpg"
+             alt="Jurnal de Razboi">
+
+        <!-- Card content -->
+        <div class="card-body">
+
+            <!-- Title -->
+            <h4 th:text="*{book.bookName}" class="card-title"><a>Regina Maria a Romaniei</a></h4>
+            <!-- Text -->
+            <p class="card-text">Jurnal de Razboi</p>
+            <!-- Button -->
+            <a href="#" class="btn btn-primary">Button</a>
+
+        </div>
+
+    </div>
+</div>
+</html>
