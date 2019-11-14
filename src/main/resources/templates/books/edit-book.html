@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+
+<div layout:fragment="content" class="container">
+    <p class="my-5">
+        <a th:href="@{/addbook}" class="btn btn-primary">
+            <i class="fas fa-user-plus ml-2"></i>
+        </a>
+    </p>
+    <div th:switch="${books}">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 th:case="null">Click on button to register book!</h2>
+                <div th:case="*">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID Book</th>
+                            <th scope="col">BOOK NAME</th>
+                            <th scope="col">AUTHOR</th>
+                            <th scope="col">PUBLISHING HOUSE</th>
+                            <th scope="col">PAGE NUMBER</th>
+                            <th scope="col">STOCK</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col">IMAGE</th>
+                            <th scope="col">EDIT</th>
+                            <th scope="col">DELETE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="book : ${books}">
+                            <td th:text="${book.id}"></td>
+                            <td th:text="${book.bookName}"></td>
+                            <td th:text="${book.author}"></td>
+                            <td th:text="${book.publishingHouse}"></td>
+                            <td th:text="${book.pageNo}"></td>
+                            <td th:text="${book.stock}"></td>
+                            <td th:text="${book.category}"></td>
+                            <td th:text="${book.immage}"></td>
+                            <td><a th:href="@{/edit-book/{id}(id=${book.id})}" class="btn btn-primary">
+                                <i class="fas fa-edit ml-2"></i></a></td>
+                            <td><a th:href="@{/delete-book/{id}(id=${book.id})}" class="btn btn-primary">
+                                <i class="fas fa-trash-alt ml-2"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

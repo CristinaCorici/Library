@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}">
+
+
+<div layout:fragment="content" class="container">
+    <h2 class="mb-5">New Book</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/loadbook}" th:object="${book}" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="bookName" class="col-form-label">Book Name</label>
+                        <input type="text" th:field="*{bookName}" class="form-control" id="bookName"
+                               placeholder="BookName">
+                        <span th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}"
+                              class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="author" class="col-form-label">Author</label>
+                        <input type="text" th:field="*{author}" class="form-control" id="author" placeholder="Author">
+                        <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="publishingHouse" class="col-form-label">Publishing House</label>
+                        <input type="text" th:field="*{publishingHouse}" class="form-control" id="publishingHouse"
+                               placeholder="PublishingHouse">
+                        <span th:if="${#fields.hasErrors('publishingHouse')}" th:errors="*{publishingHouse}"
+                              class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="pageNo" class="col-form-label">Page Number</label>
+                        <input type="number" th:field="*{pageNo}" class="form-control" id="pageNo" placeholder="PageNo">
+                        <span th:if="${#fields.hasErrors('pageNo')}" th:errors="*{pageNo}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="stock" class="col-form-label">Stock</label>
+                        <input type="number" th:field="*{stock}" class="form-control" id="stock" placeholder="Stock">
+                        <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-form-label">Category</label>
+                        <select name="category">
+                            <option th:each="categoryOpt : ${T(com.sda.project.entities.Category).values()}"
+                                    th:value="${categoryOpt}" th:text="${categoryOpt.displayValue}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="immage" class="col-form-label">Immage</label>
+                        <input name="image" type="file" class="form-control" id="immage"
+                               placeholder="Immage">
+                        <span th:if="${#fields.hasErrors('immage')}" th:errors="*{immage}"
+                              class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <input type="submit" class="btn btn-primary" value="Add Book">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>

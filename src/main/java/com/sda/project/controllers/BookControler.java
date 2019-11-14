@@ -2,6 +2,7 @@ package com.sda.project.controllers;
 
 import com.sda.project.books.BookService;
 import com.sda.project.entities.Book;
+import com.sda.project.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,25 +33,26 @@ public class BookControler {
     public String showBookRegisterForm(Model model) {
         List<Book> books = bookService.getBooks();
         model.addAttribute("books", books );
-        return "edit-book";
+        return "books/edit-book";
     }
 
     @GetMapping("/addbook")
     public String showRegisterBookForm(Model model) {
         model.addAttribute("book", new Book());
-        return "book-register";
+        return "books/book-register";
     }
 
     @PostMapping("/loadbook")
-    public String addBook(@RequestParam("image") MultipartFile image, @Valid Book book, BindingResult result, Model model) throws IOException {
+    public String addBook(@RequestParam("image") MultipartFile image, @Valid Book book,
+                          BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
-            return "book-register";
+            return "books/book-register";
         }
         byte[] byteImage = image.getBytes();
         book.setImmage(byteImage);
         bookService.addBook(book);
         model.addAttribute("books", bookService.getBooks());
-        return "edit-book";
+        return "books/edit-book";
     }
 
     @GetMapping("/edit-book/{id}")
@@ -58,7 +60,7 @@ public class BookControler {
         Book book = bookService.getById(id).orElseThrow(()
                 -> new IllegalArgumentException("Invalid book Id:" + id));
         model.addAttribute("book", book);
-        return "book-update";
+        return "books/book-update";
     }
 
     @PostMapping("/book-update/{id}")
@@ -66,14 +68,14 @@ public class BookControler {
                              @Valid Book book, BindingResult result, Model model) throws IOException {
         if (result.hasErrors()) {
             book.setId(id);
-            return "book-update";
+            return "books/book-update";
         }
 
         byte[] byteImage = image.getBytes();
         book.setImmage(byteImage);
         bookService.addBook(book);
         model.addAttribute("books", bookService.getBooks());
-        return "edit-book";
+        return "books/edit-book";
     }
 
     @GetMapping("/delete-book/{id}")
@@ -82,7 +84,7 @@ public class BookControler {
                 -> new IllegalArgumentException("Invalid book Id:" + id));
         bookService.delete(id);
         model.addAttribute("users", bookService.getBooks());
-        return "edit-book";
+        return "books/edit-book";
     }
 
     @GetMapping("/getImmageFromDB/{id}")
@@ -105,13 +107,33 @@ public class BookControler {
 
     @GetMapping("/religion")
     public String showReligionPage(Model model){
-//        model.addAttribute("religionBooks",getBooksFromCategory("religion"));
-        List<Book> books = bookService.getBooks();
+        List<Book> books = getBooksFromCategory(Category.RELIGION);
         model.addAttribute("religionBooks", books);
-        return "religion";
+        return "books/religion";
     }
 
-    public List<Book> getBooksFromCategory(String category){ //Java 7
+    @GetMapping("/literature")
+    public String showLiteraturePage(Model model){
+        List<Book> books = getBooksFromCategory(Category.LITERATURE);
+        model.addAttribute("literatureBooks", books);
+        return "books/literature";
+    }
+
+    @GetMapping("/health")
+    public String showHealthPage(Model model){
+        List<Book> books = getBooksFromCategory(Category.HEALTH);
+        model.addAttribute("healthBooks", books);
+        return "books/health";
+    }
+
+    @GetMapping("/psychology")
+    public String showPsychologyPage(Model model){
+        List<Book> books = getBooksFromCategory(Category.PSYCHOLOGY);
+        model.addAttribute("psychologyBooks", books);
+        return "books/psychology";
+    }
+
+    public List<Book> getBooksFromCategory(Category category){ //Java 7
         List<Book> books = bookService.getBooks();
         List<Book> bookByCategory = new ArrayList<>();
         for (Book book : books){
@@ -122,8 +144,7 @@ public class BookControler {
         return bookByCategory;
     }
 
-    public List<Book> getBooksByCategoryJava8(String category){
+    public List<Book> getBooksByCategoryJava8(Enum category){
        return  bookService.getBooks().stream().filter(b -> b.getCategory().equals(category)).collect(Collectors.toList());
     }
-
 }

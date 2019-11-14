@@ -30,21 +30,11 @@ public class UserController {
         return "index";
     }
 
-//    @PostMapping("/")
-//    public void getAdmin(Model model) {
-//        User userAdmin = new User("Administrator", "admin@gmail.com",
-//                "administrator", "ADMIN");
-//        if (userAdmin.getEmail().isEmpty()) {
-//        userService.addUser(userAdmin);
-//        model.addAttribute("users", userService.get());
-//        }
-//    }
-
     @GetMapping("/view-users")
     public String showUpdateForm(Model model) {
         List<User> users = (List<User>) userService.get();
         model.addAttribute("users", users);
-        return "users";
+        return "users/users";
     }
 
     @GetMapping("/signup")
@@ -78,14 +68,14 @@ public class UserController {
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         User user = userService.getById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user id" + id));
         model.addAttribute("user", user);
-        return "user-edit";
+        return "users/user-edit";
     }
 
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") Long id, @Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             user.setId(id);
-            return "user-edit";
+            return "users/user-edit";
         }
 
         userService.addUser(user);
@@ -100,5 +90,4 @@ public class UserController {
         model.addAttribute("users", userService.get());
         return "index";
     }
-
 }

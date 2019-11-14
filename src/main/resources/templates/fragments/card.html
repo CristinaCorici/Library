@@ -5,16 +5,21 @@
     <div class="card">
 
         <!-- Card image -->
-        <img class="card-img-top" src="static/img/maria-regina-romaniei-jurnal-de-razboi-1918-13118.jpg"
-             alt="Jurnal de Razboi">
-
+<!--        <img class="card-img-top" src="static/img/maria-regina-romaniei-jurnal-de-razboi-1918-13118.jpg"-->
+<!--             alt="Jurnal de Razboi">-->
+        <img id="BookCover" th:src="@{/getImmageFromDB/{id}(id=${book.id})} " alt="Sample photo">
         <!-- Card content -->
         <div class="card-body">
 
             <!-- Title -->
-            <h4 th:text="*{book.bookName}" class="card-title"><a>Regina Maria a Romaniei</a></h4>
+            <h4 th:text="*{book.bookName}" class="card-title"><a></a></h4>
+            <h5 th:text="*{book.author}" class="card-title"></h5>
+
             <!-- Text -->
-            <p class="card-text">Jurnal de Razboi</p>
+
+            <p th:text="*{book.publishingHouse}" class="card-text"></p>
+            <p th:text="*{book.pageNo}+ pagini" class="card-text"></p>
+
             <!-- Button -->
             <a href="#" class="btn btn-primary">Button</a>
 

@@ -1,9 +1,6 @@
 package com.sda.project.entities;
 
-import javassist.bytecode.ByteArray;
-
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
@@ -23,9 +20,9 @@ public class Book {
     private int pageNo;
 
     private int stock;
-
-    @NotBlank
-    private String category;
+    
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Lob
     @Column(columnDefinition = "BLOB")
@@ -83,11 +80,11 @@ public class Book {
         this.stock = stock;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
